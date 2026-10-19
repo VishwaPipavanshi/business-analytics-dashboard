@@ -1,0 +1,489 @@
+@use "../../styles/variables" as *;
+
+.dash-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: $header-height;
+  background: $color-surface;
+  border-bottom: 1px solid $color-border;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $space-5;
+  gap: $space-4;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, $color-primary, #3b82f6);
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  }
+
+  &__brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 750;
+    color: $color-navy;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-muted;
+    font-weight: 400;
+    @media (max-width: 900px) { display: none; }
+  }
+
+  // ── Controls Row ────────────────────────────────────
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex-shrink: 0;
+  }
+
+  // ── Popover Wrapper ─────────────────────────────────
+  &__popover-wrap {
+    position: relative;
+  }
+
+  // ── Date Range Selector ─────────────────────────────
+  &__control-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-surface;
+    font-size: $font-size-sm;
+    color: $color-text;
+    cursor: pointer;
+    transition: all $transition-base;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: $color-primary;
+      background: $color-primary-bg;
+      color: $color-primary;
+    }
+  }
+
+  &__date-btn {
+    svg:first-child { color: $color-primary; }
+  }
+
+  &__date-label {
+    font-weight: 500;
+    @media (max-width: 1200px) { display: none; }
+  }
+
+  &__chevron {
+    transition: transform 0.2s ease;
+    &--open { transform: rotate(180deg); }
+  }
+
+  // ── Date Popover ────────────────────────────────────
+  &__date-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 200;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    min-width: 320px;
+    padding: $space-4;
+    animation: slideDown 0.15s ease-out;
+  }
+
+  &__date-popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $space-3;
+  }
+
+  &__date-popover-title {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $color-navy;
+  }
+
+  &__popover-close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: $color-surface-2;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-muted;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $color-danger-bg;
+      color: $color-danger;
+    }
+  }
+
+  &__date-presets {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: $space-3;
+  }
+
+  &__preset-btn {
+    padding: 8px 12px;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-surface;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $color-text;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+      background: $color-primary-bg;
+    }
+
+    &--active {
+      background: $color-primary;
+      color: #fff;
+      border-color: $color-primary;
+      font-weight: 600;
+
+      &:hover {
+        background: $color-primary-2;
+        color: #fff;
+        border-color: $color-primary-2;
+      }
+    }
+  }
+
+  &__custom-dates {
+    display: flex;
+    gap: $space-3;
+    padding-top: $space-2;
+    border-top: 1px solid $color-border;
+  }
+
+  &__date-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__date-field-label {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: $color-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__date-input {
+    padding: 8px 10px;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    color: $color-text;
+    background: $color-surface-2;
+    cursor: pointer;
+    transition: border-color $transition-fast;
+
+    &:focus {
+      border-color: $color-primary;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+  }
+
+  // ── Select Wrappers ─────────────────────────────────
+  &__select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    background: $color-surface;
+    color: $color-muted;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $color-primary;
+    }
+
+    &:focus-within {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+  }
+
+  .desktop-only-filter {
+    @media (max-width: 768px) { display: none; }
+  }
+
+  .mobile-only-filter {
+    display: none;
+    @media (max-width: 768px) { display: block; }
+  }
+
+  .desktop-only {
+    @media (max-width: 640px) { display: none; }
+  }
+
+  &__control-btn--active {
+    border-color: $color-primary;
+    color: $color-primary;
+    background: $color-primary-bg;
+  }
+
+  &__mobile-filters-popover {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 200;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    min-width: 260px;
+    padding: $space-4;
+    animation: slideDown 0.12s ease-out;
+  }
+
+  &__mobile-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__select {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: $font-size-sm;
+    color: $color-text;
+    cursor: pointer;
+    min-width: 100px;
+    font-weight: 500;
+  }
+
+  // ── Export ──────────────────────────────────────────
+  &__export-btn {
+    white-space: nowrap;
+
+    @media (max-width: 480px) {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+  }
+
+  &__export-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 200;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    min-width: 220px;
+    padding: 6px;
+    animation: slideDown 0.12s ease-out;
+  }
+
+  &__export-item {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    border-radius: $radius-sm;
+    text-align: left;
+    font-size: $font-size-sm;
+    color: $color-text;
+    cursor: pointer;
+    width: 100%;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $color-primary-bg;
+      color: $color-primary;
+    }
+  }
+
+  // ── Icon Button ─────────────────────────────────────
+  &__icon-btn {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-muted;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      background: $color-primary-bg;
+      color: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+
+  &__notif-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background: $color-danger;
+    border-radius: 50%;
+    border: 2px solid $color-surface;
+  }
+
+  &__avatar {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, $color-primary, $color-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: $font-size-xs;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform $transition-base;
+
+    &:hover { transform: scale(1.05); }
+  }
+}
+
+// ─── Responsive Stacking ─────────────────────────────────────
+@media (max-width: 768px) {
+  .dash-header {
+    height: auto;
+    min-height: $header-height;
+    padding: 10px 14px;
+    gap: 8px;
+
+    &__brand {
+      gap: 8px;
+    }
+
+    &__logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__subtitle {
+      display: none; // Hide long subtitle on mobile to keep compact
+    }
+
+    &__controls {
+      gap: 6px;
+    }
+
+    &__date-btn {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .dash-header {
+    padding-inline: 12px;
+    gap: 10px;
+
+    &__brand {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    &__brand-text {
+      min-width: 0;
+    }
+
+    &__title {
+      font-size: 17px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__controls {
+      min-width: 0;
+      flex-shrink: 1;
+    }
+
+    .desktop-only-filter {
+      display: none;
+    }
+
+    .mobile-only-filter {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .dash-header__date-popover {
+    position: fixed;
+    top: 105px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .dash-header__export-btn .export-text {
+    display: none;
+  }
+}

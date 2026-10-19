@@ -1,0 +1,240 @@
+@use "../../styles/variables" as *;
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-container {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.18s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-4 $space-6;
+  border-bottom: 1px solid $color-border;
+  background: $color-surface;
+
+  &__title-group {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+}
+
+.modal-back-btn {
+  background: $color-surface-2;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  padding: 3px 8px;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  color: $color-text;
+  cursor: pointer;
+  margin-right: $space-1;
+
+  &:hover {
+    background: #e2e8f0;
+    color: $color-primary;
+  }
+}
+
+.modal-entity-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  background: rgba(37, 99, 235, 0.1);
+  color: $color-primary;
+}
+
+.modal-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $color-text;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: $color-muted;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $color-surface-2;
+    color: $color-text;
+  }
+}
+
+.modal-body {
+  padding: $space-6;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.modal-section-title {
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: $color-muted;
+  margin: 0 0 $space-3 0;
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+}
+
+.modal-attr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: $space-3;
+}
+
+.modal-attr-card {
+  background: $color-surface-2;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  padding: $space-3;
+}
+
+.modal-attr-label {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: 11px;
+  color: $color-muted;
+  margin-bottom: 4px;
+}
+
+.modal-attr-value {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $color-text;
+  word-break: break-word;
+}
+
+.modal-relations-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.modal-relation-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.modal-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: $color-muted;
+}
+
+.modal-relation-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: 10px 14px;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    background: rgba(37, 99, 235, 0.02);
+    transform: translateX(2px);
+  }
+}
+
+.modal-relation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.modal-relation-type {
+  font-size: 9px;
+  font-weight: 700;
+  color: $color-muted;
+  letter-spacing: 0.04em;
+}
+
+.modal-relation-name {
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.modal-relation-sub {
+  font-size: 11px;
+  color: $color-muted;
+}
+
+.modal-relation-arrow {
+  color: $color-muted;
+  flex-shrink: 0;
+}
+
+.modal-no-relations {
+  padding: $space-4;
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-muted;
+  border: 1px dashed $color-border;
+  border-radius: $radius-md;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: $space-3 $space-6;
+  border-top: 1px solid $color-border;
+  background: $color-surface-2;
+}

@@ -1,0 +1,99 @@
+@use "../../styles/variables" as *;
+
+.kpi-card {
+  min-width: 0;
+  min-height: 132px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.07);
+    border-color: #cbd5e1;
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    letter-spacing: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &--primary { background: #eff6ff; color: #2563eb; }
+    &--success { background: #ecfdf5; color: #10b981; }
+    &--warning { background: #fffbeb; color: #f59e0b; }
+    &--danger  { background: #fef2f2; color: #ef4444; }
+    &--purple  { background: #f5f3ff; color: #8b5cf6; }
+    &--cyan    { background: #ecfeff; color: #06b6d4; }
+    &--orange  { background: #fff7ed; color: #f97316; }
+    &--indigo  { background: #eef2ff; color: #6366f1; }
+  }
+
+  &__value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+    margin: 2px 0 0 0;
+    white-space: nowrap;
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  &__sub {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-left: auto;
+  }
+}
